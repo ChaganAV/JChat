@@ -47,6 +47,9 @@ public class Client {
                 while (socket.isConnected()){
                    try{
                        message = bufferedReader.readLine();
+                       if(message == null){
+                           break;
+                       }
                        System.out.println(message);
                    }catch (IOException e){
                        closeClient(socket,bufferedReader,bufferedWriter);
@@ -73,9 +76,10 @@ public class Client {
             if(socket != null){
                 socket.close();
             }
+            System.out.println("Закрыли socket и освободили reader/writer");
         }catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Закрыли socket и освободили reader/writer");
+
     }
 }

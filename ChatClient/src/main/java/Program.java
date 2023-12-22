@@ -19,8 +19,8 @@ public class Program {
 
             client.listenMessage();
             client.sendMessage();
-        }catch (UnknownHostException ehost){
-            ehost.printStackTrace();
+        }catch (UnknownHostException eh){
+            eh.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         }
