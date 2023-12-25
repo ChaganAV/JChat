@@ -36,6 +36,7 @@ public class ClientManager implements Runnable {
                     closeSocket(socket,bufferedReader,bufferedWriter);
                     break;
                 }
+                broadcastMessage(message);
             }catch (IOException e){
                 closeSocket(socket,bufferedReader,bufferedWriter);
                 break;
