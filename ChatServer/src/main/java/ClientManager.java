@@ -36,7 +36,11 @@ public class ClientManager implements Runnable {
                     closeSocket(socket,bufferedReader,bufferedWriter);
                     break;
                 }
-                broadcastMessage(message);
+                if(message.contains("@")){
+                    sendMessage(message);
+                }else {
+                    broadcastMessage(message);
+                }
             }catch (IOException e){
                 closeSocket(socket,bufferedReader,bufferedWriter);
                 break;
@@ -77,6 +81,22 @@ public class ClientManager implements Runnable {
                 }
             }catch (IOException e){
                 closeSocket(socket,bufferedReader,bufferedWriter);
+            }
+        }
+    }
+    private void sendMessage(String message){
+        String messageTemp = message.substring(message.indexOf("@"));
+        String clientTo = messageTemp.substring(1,messageTemp.indexOf(":"));
+        System.out.println(clientTo);
+        for(ClientManager client: clients){
+            try{
+                if(client.name.equals((clientTo))){
+                    client.bufferedWriter.write(message);
+                    client.bufferedWriter.newLine();
+                    client.bufferedWriter.flush();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
